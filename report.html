@@ -52,9 +52,9 @@
                 <div class="col-md-2 chapter">
                     <h6>SECTION 2</h6><a href="#clustering" class="js-anchor-link">Users Clustering</a></div>
                 <div class="col-md-2 chapter">
-                    <h6>SECTION 3</h6><a href="#upload-section" class="js-anchor-link">Content Recommendation</a></div>
+                    <h6>SECTION 3</h6><a href="#content-recommendation" class="js-anchor-link">Content Recommendation</a></div>
                 <div class="col-md-2 chapter">
-                    <h6>SECTION 4</h6><a href="#upload-section" class="js-anchor-link">Followers Classification</a></div>
+                    <h6>SECTION 4</h6><a href="#followers-classification" class="js-anchor-link">Followers Classification</a></div>
                 <div class="col-md-2 chapter">
                     <h6>SECTION 5</h6><a href="#upload-section" class="js-anchor-link">Frank</a></div>
                 <div class="col-md-2 chapter">
@@ -96,35 +96,315 @@
                     <div>
                         <h1>USERS CLUSTERING</h1>
                     </div>
-                    <div>
-                        <h4>Premise</h4>
-                        <p class="paragraph">
-                            We were given access to a dataset composed of Instagram data from the accounts of Emporio Sirenuse and its followers, along with the accounts of 9 other competitors and their followers. We want to:
-                        </p>
-                        <ol>
-                            <li>Identify methods for feature detection from Social Media text and image data.</li>
-                            <li>Cluster Instagram posts of the client’s followers using these features.</li>
-                            <li>Detect latent communities based on the distribution of user posts in different clusters.</li>
-                        </ol>
-                        <p class="paragraph">
-                            This is a difficult task since social media data, while being complex and composed of heterogeneous components (text, image, geo-tags, hashtags, mentions...etc), tends to be very abstract and hard to ascertain. Moreover this heterogeneity also translates into completely different feature detection methods, which are hard to integrate and validate in an unsupervised learning setting like ours.
-                        </p>
-                        <h4>Clustering</h4>
-                        <p class="paragraph">
-                            We intend to cluster users into specific communities, based on their Instagram activity. In order to do that we cluster all their instagram posts into general clusters, which can be thought of as standard units and then we cluster the users based on their representation in these standard units. This allows us to find communities of users that share interests, and post about the same topics in the same measure.
-                        </p>
-                        <p class="paragraph">
-                            This clustering system is hinged on finding a latent space that accurately sepearates the posts based on their features and characteristics.
-                        </p>
-                    </div>
+
+                    <h4>Premise</h4>
+                    <p class="paragraph">
+                        We were given access to a dataset composed of Instagram data from the accounts of Emporio Sirenuse and its followers, along with the accounts of 9 other competitors and their followers. We want to:
+                    </p>
+                    <ol>
+                        <li>Identify methods for feature detection from Social Media text and image data.</li>
+                        <li>Cluster Instagram posts of the client’s followers using these features.</li>
+                        <li>Detect latent communities based on the distribution of user posts in different clusters.</li>
+                    </ol>
+                    <p class="paragraph">
+                        This is a difficult task since social media data, while being complex and composed of heterogeneous components (text, image, geo-tags, hashtags, mentions...etc), tends to be very abstract and hard to ascertain. Moreover this heterogeneity also translates into completely different feature detection methods, which are hard to integrate and validate in an unsupervised learning setting like ours.
+                    </p>
+                    <h4>Clustering</h4>
+                    <p class="paragraph">
+                        We intend to cluster users into specific communities, based on their Instagram activity. In order to do that we cluster all their instagram posts into general clusters, which can be thought of as standard units and then we cluster the users based on their representation in these standard units. This allows us to find communities of users that share interests, and post about the same topics in the same measure.
+                    </p>
+                    <p class="paragraph">
+                        This clustering system is hinged on finding a latent space that accurately sepearates the posts based on their features and characteristics. Therefore, extracting the right features from images and text to create a large vector representation of an Instagram post is the most significant and complex task.
+                    </p>
+                    <h4>Naive Implementation - Images</h4>
+                    <p class="paragraph">
+                        The initial implementation of image clustering involved using basic image features such:
+                    </p>
+                    <ul>
+                        <li>Color Histogram</li>
+                        <li>Detail Estimation using Canny Edge Detector</li>
+                        <li>Feature Extraction using Corner Detector (Harris)</li>
+                    </ul>
+                    <p class="paragraph">A large vector representation of the image was thus constructed and K-Means was performed with K=5</p>
+                    <h4>Naive Implementation - Text</h4>
+                    <p class="paragraph">
+                        The initial implementation of text clustering involved:
+                    </p>
+                    <ul>
+                        <li>One-Hot-Encoding the text of each caption.</li>
+                        <li>Frequency of occurrence of each word is used as a feature.</li>
+                        <li>The caption is thus reduced to a bag of words.</li>
+                    </ul>
+                    <p class="paragraph">A vector representation of the text is thus a count vector of the entire observed vocabulary.</p>
+                    <p class="paragraph">Of course this way the features were easy to extract and very interpretable. However, the features did not include any information about the objects/context in the image or style features in the text: they did not account for correlation between text and image and the features themselves are too simple to handle the stochasticity of social media data.
+                    </p>
                 </div>
+
                 <div class="col-xl-6">
                     <div style="height: 100%; background: url(img/pipeline.jpg) 50% 50% no-repeat; background-size: contain; margin-top: 108px;">
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-xl-6">
+                    <div style="height: 100%; background: url(img/maskr.jpeg) 50% 50% no-repeat; background-size: contain;">
+                    </div>
+                </div>
+                <div class="col-xl-6">
+                    <h4>Intermediate Trials - Object Detection</h4>
+                    <p class="paragraph">To add the perspective of what are the contents of the image, we tried using the Object Detection model designed by the Facebook AI Research team named Mask R-CNN. This model includes the power of a regular Faster R-CNN implementation and includes a Fully Convolutional Network (FCN) branch which performs pixel-by-pixel segmentation of each Region of Interest (RoI). The model detects 70 classes of objects and thus the image is represented by a vector of dimension 1x70.
+                    </p>
+                    <h4>Intermediate Trials - Scene Detection</h4>
+                    <p class="paragraph">To add the information of image context, we trained a Scene Detection model on the Flickr dataset which consists of images and corresponding captions. This model uses a CNN for Image Feature Extraction combined with an LSTM for Text Embedding. The model is trained to learn the relationship between the two vectors. The model outputs a string caption for an image input. For clustering, this caption was encoded using Bag of Words into a count vector.
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-3">
+                    <div style="height: 400px; background: url(img/ski.png) 50% 50% no-repeat; background-size: contain;">
+                    </div>
+                </div>
+                <div class="col-xl-9">
+                    <div class="row">
+                        <div class="col-xl-4">
+                            <h4 style="text-align: center;">Object Detection</h4>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th style="text-align: center;" scope="col">Person</th>
+                                        <th style="text-align: center;" scope="col">Ski Blades</th>
+                                        <th style="text-align: center;" scope="col">Hill</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="text-align: center;">1</td>
+                                        <td style="text-align: center;">1</td>
+                                        <td style="text-align: center;">1</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-xl-4">
+                            <h4 style="text-align: center;">Scene Detection</h4>
+                            <p style="text-align: center;">“A person skis off a ramp to perform a stunt”</p>
+                        </div>
+                        <div class="col-xl-4">
+                            <h4 style="text-align: center;">Post</h4>
+                            <p style="text-align: center;">Caption : “She can fly !!!”</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-12" style="height: 200px; background: url(img/repr.png) 50% 50% no-repeat; background-size: contain;"></div>
+                    </div>
+                </div>
+                <p class="paragraph">This approach managed to find the following clusters: Cosmetics, Modelling, Lifestyle.</p>
+            </div>
+            <div class="row">
+                <div class="col-xl-12">
+                    <p class="paragraph">Given the lack of ground truth at our disposable, we curated a dataset to help quantitatively evaluate the results of clustering. Thus, we chose 4 hashtags and scraped 10,000 posts from Instagram for each of them. The hashtags were:</p>
+                    <ul>
+                        <li>Food</li>
+                        <li>Cosmetics</li>
+                        <li>Rock Climbing</li>
+                        <li>Nightlife</li>
+                    </ul>
+                    <p>Note : Although the topics are well defined, only ~70% of the dataset scraped was relevant. The remaining posts were either sarcastic, non-contextual or abstract.</p>
+                    <h4>Autoencoder</h4>
+                    <p class="paragraph">To obtain a Latent Representation of the Image, we trained a Neural Network to reproduce the original input using a symmetric architecture i.e. an Autoencoder.
+                    </p>
+                    <div style="height: 400px; background: url(img/autoencoder.png) 50% 50% no-repeat; background-size: contain;"></div>
+                    <p class="paragraph">An autoencoder neural network is an unsupervised Machine learning algorithm that applies backpropagation, setting the target values to be equal to the inputs. An autoencoder is trained to attempt to copy its input to its output. Internally, it has a hidden layer that describes a code used to represent the input.</p>
+                    <p class="paragraph">The parameters of this implementation were:</p>
+                    <ul>
+                        <li>Image Size : 64x64</li>
+                        <li>3x2 layers of 64 Convolutional Filters, Kernel Size = (2,2)</li>
+                        <li>Max Pooling Window = (2,2)</li>
+                        <li>Loss : Mean Squared Error</li>
+                        <li>Epochs : 50</li>
+                    </ul>
+                    <p class="paragraph">The images produced were blurry and did not represent the input well. This can be attributed to the degree of variability in the dataset and overall complexity of the network.</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-6" style="height: 400px; background: url(img/cl_ae.png) 50% 50% no-repeat; background-size: contain;"></div>
+                <div class="col-xl-6" style="height: 400px; background: url(img/cl_ae2.png) 50% 50% no-repeat; background-size: contain;"></div>
+                <p class="paragraph">We can clearly observe that the clusters are not well separated and the cluster purity when matched to the ground truth is not high.</p>
+            </div>
+            <div class="row">
+                <div class="col-xl-12">
+                    <h4>CNN</h4>
+                    <p class="paragraph">To correctly classify the input images into topic classes by identifying distinct features of an image, we trained a neural network with convolutional layers i.e. Convolutional Neural Network.
+                    </p>
+                    <div style="height: 400px; background: url(img/cnn.png) 50% 50% no-repeat; background-size: contain;"></div>
+                    <p class="paragraph">A Convolutional Neural Network (CNN) is comprised of one or more convolutional layers (often with a subsampling step) and then followed by one or more fully connected layers as in a standard multilayer neural network. The architecture of a CNN is designed to take advantage of the 2D structure of an input image (or other 2D input such as a speech signal). This is achieved with local connections and tied weights followed by some form of pooling which results in translation invariant features. Another benefit of CNNs is that they are easier to train and have many fewer parameters than fully connected networks with the same number of hidden units.</p>
+                    <p class="paragraph">The parameters of this implementation were:</p>
+                    <ul>
+                        <li>Image Dimension : 64x64</li>
+                        <li>3 layers of 256, 128 and 64 Convolutional Filters respectively.</li>
+                        <li>Kernel and Max Pooling Window = (2,2)</li>
+                        <li>Loss : Categorical Cross-Entropy</li>
+                        <li>Epochs : 100</li>
+                    </ul>
+                    <p class="paragraph">The classification accuracy obtained was 70%. The class which was hardest to predict was ‘Rock Climbing’.</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-6" style="height: 400px; background: url(img/cnn_cl.png) 50% 50% no-repeat; background-size: contain;"></div>
+                <div class="col-xl-6" style="height: 400px; background: url(img/cnn_cl2.png) 50% 50% no-repeat; background-size: contain;"></div>
+                <p class="paragraph">We can clearly observe that the clusters are better separated than the Auto Encoder implementation. The cluster purity when matched to the ground truth is also relatively better.</p>
+            </div>
+            <div class="row">
+                <div class="col-xl-12">
+                    <h4>LSTM for Text Feature Extraction</h4>
+                    <p class="paragraph">To correctly classify the input text into topic classes by identifying distinct features such as style and grammar, we trained a neural network with a non-preset memory window i.e. a Long Short Term Memory based Recurrent Neural Network.
+                    </p>
+                    <div style="height: 400px; background: url(img/lstm.png) 50% 50% no-repeat; background-size: contain;"></div>
+                    <p class="paragraph">Long short-term memory (LSTM) units (or blocks) are a building unit for layers of a recurrent neural network (RNN). A RNN composed of LSTM units is often called an LSTM network. A common LSTM unit is composed of a cell, an input gate, an output gate and a forget gate. The cell is responsible for "remembering" values over arbitrary time intervals; hence the word "memory" in LSTM. Each of the three gates can be thought of as a "conventional" artificial neuron, as in a multi-layer (or feedforward) neural network: that is, they compute an activation (using an activation function) of a weighted sum.</p>
+                    <p class="paragraph">The parameters of this implementation were:</p>
+                    <ul>
+                        <li>Google’s word-embedding corpus was used to preprocess the text input. It converts every word to a vector of dimension 1x300</li>
+                        <li>1 LSTM layer of 64 cells</li>
+                        <li>Loss : Categorical Cross Entropy</li>
+                        <li>Epochs : 100</li>
+                    </ul>
+                    <p class="paragraph">The classification accuracy obtained was 87%. The class which was hardest to predict was ‘Nightlife’.</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-6" style="height: 400px; background: url(img/lstm_cl.png) 50% 50% no-repeat; background-size: contain;"></div>
+                <div class="col-xl-6" style="height: 400px; background: url(img/lstm_cl2.png) 50% 50% no-repeat; background-size: contain;"></div>
+                <p class="paragraph">We can clearly observe that the clusters are well separated. The cluster purity when matched to the ground truth is very impressive.</p>
+            </div>
+            <div class="row">
+                <div class="col-xl-12">
+                    <h4>Model Selection</h4>
+                    <p class="paragraph">After observing the results, the choice of model for input Image Embedding was chosen to be a CNN, whereas LSTM was chosen for text</p>
+                    <div style="height: 400px; background: url(img/models.png) 50% 50% no-repeat; background-size: contain;"></div>
+                    <p>At this point we need to find the optimal cluster count through Elbow and Avg. Silhouette method</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-6" style="height: 400px; background: url(img/elbow.png) 50% 50% no-repeat; background-size: contain;"></div>
+                <div class="col-xl-6" style="height: 400px; background: url(img/avg_sil.png) 50% 50% no-repeat; background-size: contain;"></div>
+                <p class="paragraph">We can clearly observe that the best cluster count is between 4 and 5</p>
+            </div>
+            <h4>Results and Conclusions</h4>
+            <div class="row">
+                <div class="col-xl-6" style="height: 400px; background: url(img/fin_cl.png) 50% 50% no-repeat; background-size: contain;"></div>
+                <div class="col-xl-6" style="height: 400px; background: url(img/fin_cl2.png) 50% 50% no-repeat; background-size: contain;"></div>
+                <p class="paragraph">Feature extraction is the most important step for efficiently clustering data. Naive feature extraction is simple but not accurate for finding more distinct features of online communities. Convolutional Neural Networks are really powerful in feature extraction from image data. LSTMs are more robust than standard RNNs given how they overcome the problems of vanishing/exploding gradients. They are highly suitable for text data. Combining CNN and LSTM features provides an accurate representation of an Instagram post.</p>
+            </div>
         </div>
-        <div class="container-fluid separator">
+        <div class="container-fluid separator"></div>
+        <div class="container" id="content-recommendation">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div>
+                        <h1>CONTENT RECOMMENDATION</h1>
+                    </div>
+                    <div>
+                        <h4>Ranking</h4>
+                        <p class="paragraph">From the clustering, we have an understanding of the underlying communities of users. </p>
+                        <p class="paragraph">The intended user, a social media manager for example, will upload his or her pictures (from a photoshoot) to the tool. His/Her goal is to create a post that best appeals to a chosen community. In other words, the social media manager wants to optimize his/her image, caption, and hashtag for a given community.</p>
+                        <p class="paragraph">A post can be optimized by two metrics: </p>
+                        <ol>
+                            <li>Whether a post will be similar to a community</li>
+                            <li>Whether a post will be popular to a community</li>
+                        </ol>
+                        <p class="paragraph">The later requires an “engagement metric,” or a score that reflects the likelihood it will be received positively by the population; we address these two issues below.</p>
+                        <h4>Suggesting Photos with Community Similarity </h4>
+                        <p class="paragraph">Each picture uploaded by the social media manager is passed through the clustering algorithm, and receives a probability score that the picture belongs to each community. The probability scores that a given picture belongs to each community sums to one. Each community also has its own distribution- the compilation of images that have been passed through the clustering algorithm. </p>
+                        <p class="paragraph">Thus, we have probability distributions that we may measure the similarity between using the Kullback-Leibler Divergence (often shortened to just KL divergence).</p>
+                        <p class="paragraph">KL Divergences measure the difference between two probability distributions p(x) and q(x):</p>
+                        <div class="row">
+                            <div class="col-xl-6" style="height: 75px; background: url(img/sum.png) 50% 50% no-repeat; background-size: contain;"></div>
+                            <div class="col-xl-6" style="height: 75px; background: url(img/nonnegative.png) 50% 50% no-repeat; background-size: contain;"></div>
+                        </div>
+                        <p class="paragraph">Therefore, a lower KL divergence score suggests the two distributions are more similar. </p>
+                        <p class="paragraph">Once the social media manager identifies the community he/she would like to optimize for, the </p>
+                        <p class="paragraph">Therefore, we can quantitatively measure the similarity or difference between an uploaded picture and the community. Each uploaded picture is iterated and a KL divergence score is computed by comparing each picture’s distribution with the target communities distribution. The KL scores and then ranked, from lowest to highest, to suggest which pictures best match the target communities’ images.</p>
+                        <h4>Suggesting Text and Hashtags to Maximize Engagement </h4>
+                        <p class="paragraph">In business, social media engagement measures the public shares, likes and comments for an online business' social media efforts. Engagement is a common metric for evaluating social media performance. While maximizing engagement is best, companies like Facebook, Twitter, and e-commerce retailers differ in how they calculate standardized engagement scores. Engagement scores typically include likes, comments, number of followers, and other metrics like views, mentions, and more.</p>
+                        <p class="paragraph">We wanted to predict engagement from the quality of a photo: $$Y = \beta _ { 0} + \beta _ { 1} X _ { 1} + \beta _ { 2} X _ { 2} + \ldots + \beta _ { n } X _ { n } + \varepsilon$$</p>
+                        <p class="paragraph">Where the dependent variable, y, is the engagement score and the independent variables are the featured images. Thus, this became a supervised machine learning problem. </p>
+                        <p class="paragraph">We calculated an engagement score for every post within each community. The team had much debate in deciding how to calculating an engagement score. We wanted to normalize by the number of followers so that popular people (“Influences”) did not overwhelm the metric, while also crediting comments, which can often be outweighed by the number of likes. We experimented with z-scores and linear combinations of these variables. </p>
+                        <p class="paragraph">Proposed engagement scores were created using an iterative process between adjusting the composition and linear combinations of possible calculations with various supervised machine learning algorithms: </p>
+                        <ul>
+                            <li>Decision Tree Regressor with polynomial (varying max depths), with normalizer, MinMaxScaler</li>
+                            <li>Ridge with CV, Polynomial Ridge with CV (varying alpha), with normalizer, MinMaxScaler</li>
+                            <li>Lasso with CV, Polynomial Lasso with CV (varying alpha), with normalizer, MinMaxScaler</li>
+                            <li>SVM, Polynomial SVM</li>
+                        </ul>
+                        <p class="paragraph">We began using the engagement score for linear regressions, but ultimately decided to use a logistic regression. A 0/1 was calculated by whether an engagement score was above or below the median. </p>
+                        <p class="paragraph">Ultimately, a standardized score using likes and followers was chosen, then converted to a binomial score, as this performed best in across the supervised machine learning algorithms. We found one reason linear combinations with z scores did not work is because outliers, while useful for the compilation of communities, severely affected engagement scores that used z scores. This is because as a line was attempting to project into a multidimensional space, all of the features were clustered into only a few points. This caused very poor performance on the test set. </p>
+                        <p class="paragraph">Once an engagement metric was established, a score was calculated for each post per community. This score was used in recommending hashtags and text for the social media manager’s post. </p>
+                        <p class="paragraph">Each post was split between caption and hashtags. Then each of these were transformed into a numerical form using Word2vec. Word2vec is a two-layer neural net that processes text and output a set of vectors. Then, the words said in each post were counted, then multiplied by user engagement score for that post. This was then summed across all possible words to identify the the most “popular” words used within a community, weighted by the engagement score. Therefore, more popular posts would have a higher ranking than posts with little engagement. Now, we have a compilation of popular words and hashtags used by each community. </p>
+                        <p class="paragraph">Citations: Laurence Dessart, Cleopatra Veloutsou, Anna Morgan-Thomas, (2015) "Consumer engagement in online brand communities: a social media perspective", Journal of Product & Brand Management, Vol. 24 Issue: 1, pp.28-42, https://doi.org/10.1108/JPBM-06-2014-0635</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid separator"></div>
+        <div class="container" id="followers-classification">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div>
+                        <h1>FOLLOWERS CLASSIFICATION</h1>
+                    </div>
+                    <h4>Why detecting brands and retailers</h4>
+                    <p class="paragraph">
+                        We’re performing clustering and recommendation based on Instagram content, (captions and pictures) thus that content must be as relevant as possible for our client.</p>
+                    <p class="paragraph">Brands and retailers produce in average more than double the content of regular consumers, moreover their posts are usually concentrated around some specific topics; this might introduce strong biases in the dataset, hiding more relevant insights about consumers habits.</p>
+                    <h4>Available Data</h4>
+                    <p class="paragraph">We were given a list of 685 hand labeled users, of which:</p>
+                    <ul>
+                        <li>538 consumers</li>
+                        <li>146 brands and retailers</li>
+                    </ul>
+                    <p class="paragraph">More specifically we were given Instagram data of the users accounts:</p>
+                    <ul>
+                        <li>Following count</li>
+                        <li>Followers count</li>
+                        <li>Profile picture</li>
+                        <li>Number of posts</li>
+                        <li>Biography</li>
+                    </ul>
+                    <p class="paragraph">And of their posts:</p>
+                    <ul>
+                        <li>Tags</li>
+                        <li>Caption</li>
+                        <li>Likes count</li>
+                        <li>Comments count</li>
+                    </ul>
+                    <h4>Features Engineering</h4>
+                    <p class="paragraph">
+                        How to distinguish brands and retailers accounts from consumers accounts? Which are the features, and characteristics that discriminate the two classes?</p>
+                    <p class="paragraph">We're looking for different habits or strategies in the way the content is posted like differences in the number of posts per day or the distribution of posts over the time of the day, or again tags and mentions usage. The underlying assumption to this analisys is that regardless of the actual content of the posts, the behavior of the user online can be a good indicator of wether or not we're in presence of a consumer. More indication about the users nature can be found in what kind of content the user uses to present herself on Instagram, such as the profile picture and the biography.
+                    </p>
+                    <p class="paragraph">In order to find the correct features to distinguish users of the two classes we started from the most simple and raw data we had: accounts metadata. Some preliminar analisys were conducted representing each users with all of the account metadata available such as:</p>
+                    <ul>
+                        <li>Following count</li>
+                        <li>Followers count</li>
+                        <li>Number of posts</li>
+                    </ul>
+                    <p class="paragraph">The results of these preliminar analisys were quite disappointing so we started making research about which features could be relevant and which were not.</p>
+                    <h6><b>Posts count</b></h6>
+                    <p class="paragraph">Based on the data we had we could compute two different posts counts: we had the total posts count, that is the one indicated in a user's profile, or we could count the posts of which we had metadata, that are the posts that the user uploaded during 2017. The second choice seemed much more relevant as it would introduce a kind of normalization, telling us how many posts each user had uploading in a given time window.</p>
+                    <ul>
+                        <li>Average number of posts per day for consumers: 0.45</li>
+                        <li>Average number of posts per day for consumers: 0.92</li>
+                    </ul>
+                    <p class="paragraph">The results we already interesting: brands and retailers produce double the number of posts wrt consumers, so this feature might be relevant for our task.</p>
+                    <h6><b>Posting hours</b></h6>
+                    <p class="paragraph">Keeping in mind our assumption we looked for a first very simple posting strategy: we tried to compare the times at which the two classes of users uploaded their posts. Brands and Retailers may try to concentrate their posts in specific times of the day in order to maximize the exposure of their content to consumers. These were the resulting distributions:</p>
+                    <div class="row">
+                        <div class="col-xl-6" style="height: 400px; background: url(img/consumers_hours.svg) 50% 50% no-repeat; background-size: contain;"></div>
+                        <div class="col-xl-6" style="height: 400px; background: url(img/brands_retailers_hours.png) 50% 50% no-repeat; background-size: contain;"></div>
+                        <p class="paragraph">We can clearly observe that the best cluster count is between 4 and 5</p>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="row">
             <div class="col-xl-12">
@@ -156,7 +436,7 @@
                     </div>
                     <div class="col-xl-2">
                         <h6 id="project">THE SQUAD:</h6>
-                        <ul>
+                        <ul id="names">
                             <li class="student">Kimia Mavon</li>
                             <li class="student">Francesca Morini</li>
                             <li class="student">Karan Motwani</li>

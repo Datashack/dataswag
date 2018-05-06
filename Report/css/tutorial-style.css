@@ -1,4 +1,4 @@
-p, h1 {
+p, h1, h4, ul, ol {
   font-family: "Karla";
   z-index: 2;
   color: #494949;
@@ -89,7 +89,7 @@ a {
 }
 
 
-ul {
+#names {
    padding: 10px;
    margin-bottom: 6vh;
    color: white;
