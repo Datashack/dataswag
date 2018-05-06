@@ -33,7 +33,7 @@
                         <h1 id="intro-title">DATASHACK 2018 - Emporio Sirenuse</h1>
                     </div>
                     <div class="row">
-                        <p>Instagram Data Analysis - Communities Detection and Content Recommendation</p>
+                        <p>Instagram Data Analysis - Community Detection and Content Recommendation</p>
                         <p>
                             <br>Kimia Mavon
                             <br>Francesca Morini
@@ -227,8 +227,10 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xl-6" style="height: 400px; background: url(img/cl_ae.png) 50% 50% no-repeat; background-size: contain;"></div>
-                <div class="col-xl-6" style="height: 400px; background: url(img/cl_ae2.png) 50% 50% no-repeat; background-size: contain;"></div>
+                <div class="col-xl-2"></div>
+                <div class="col-xl-4" style="height: 400px; background: url(img/cl_ae.png) 50% 50% no-repeat; background-size: contain;"></div>
+                <div class="col-xl-4" style="height: 400px; background: url(img/cl_ae2.png) 50% 50% no-repeat; background-size: contain;"></div>
+                <div class="col-xl-2"></div>
                 <p class="paragraph">We can clearly observe that the clusters are not well separated and the cluster purity when matched to the ground truth is not high.</p>
             </div>
             <div class="row">
@@ -250,8 +252,10 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xl-6" style="height: 400px; background: url(img/cnn_cl.png) 50% 50% no-repeat; background-size: contain;"></div>
-                <div class="col-xl-6" style="height: 400px; background: url(img/cnn_cl2.png) 50% 50% no-repeat; background-size: contain;"></div>
+                <div class="col-xl-2"></div>
+                <div class="col-xl-4" style="height: 400px; background: url(img/cnn_cl.png) 50% 50% no-repeat; background-size: contain;"></div>
+                <div class="col-xl-4" style="height: 400px; background: url(img/cnn_cl2.png) 50% 50% no-repeat; background-size: contain;"></div>
+                <div class="col-xl-2"></div>
                 <p class="paragraph">We can clearly observe that the clusters are better separated than the Auto Encoder implementation. The cluster purity when matched to the ground truth is also relatively better.</p>
             </div>
             <div class="row">
@@ -272,27 +276,32 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xl-6" style="height: 400px; background: url(img/lstm_cl.png) 50% 50% no-repeat; background-size: contain;"></div>
-                <div class="col-xl-6" style="height: 400px; background: url(img/lstm_cl2.png) 50% 50% no-repeat; background-size: contain;"></div>
+                <div class="col-xl-2"></div>
+                <div class="col-xl-4" style="height: 400px; background: url(img/lstm_cl.png) 50% 50% no-repeat; background-size: contain;"></div>
+                <div class="col-xl-4" style="height: 400px; background: url(img/lstm_cl2.png) 50% 50% no-repeat; background-size: contain;"></div>
+                <div class="col-xl-2"></div>
                 <p class="paragraph">We can clearly observe that the clusters are well separated. The cluster purity when matched to the ground truth is very impressive.</p>
             </div>
             <div class="row">
                 <div class="col-xl-12">
                     <h4>Model Selection</h4>
-                    <p class="paragraph">After observing the results, the choice of model for input Image Embedding was chosen to be a CNN, whereas LSTM was chosen for text</p>
+                    <p class="paragraph">After observing the results, the choice of model for input Image Embedding was a CNN, whereas LSTM was chosen for text</p>
                     <div style="height: 400px; background: url(img/models.png) 50% 50% no-repeat; background-size: contain;"></div>
-                    <p>At this point we need to find the optimal cluster count through Elbow and Avg. Silhouette method</p>
+                    <p>At this point we need to find the optimal cluster count through Elbow and Avg. Silhouette method; we can clearly observe that the best cluster count is between 4 and 5</p>
                 </div>
             </div>
             <div class="row">
-                <div class="col-xl-6" style="height: 400px; background: url(img/elbow.png) 50% 50% no-repeat; background-size: contain;"></div>
-                <div class="col-xl-6" style="height: 400px; background: url(img/avg_sil.png) 50% 50% no-repeat; background-size: contain;"></div>
-                <p class="paragraph">We can clearly observe that the best cluster count is between 4 and 5</p>
+                <div class="col-xl-2"></div>
+                <div class="col-xl-4" style="height: 400px; background: url(img/elbow.png) 50% 50% no-repeat; background-size: contain;"></div>
+                <div class="col-xl-4" style="height: 400px; background: url(img/avg_sil.png) 50% 50% no-repeat; background-size: contain;"></div>
+                <div class="col-xl-2"></div>
             </div>
             <h4>Results and Conclusions</h4>
             <div class="row">
-                <div class="col-xl-6" style="height: 400px; background: url(img/fin_cl.png) 50% 50% no-repeat; background-size: contain;"></div>
-                <div class="col-xl-6" style="height: 400px; background: url(img/fin_cl2.png) 50% 50% no-repeat; background-size: contain;"></div>
+                <div class="col-xl-2"></div>
+                <div class="col-xl-4" style="height: 400px; background: url(img/fin_cl.png) 50% 50% no-repeat; background-size: contain;"></div>
+                <div class="col-xl-4" style="height: 400px; background: url(img/fin_cl2.png) 50% 50% no-repeat; background-size: contain;"></div>
+                <div class="col-xl-2"></div>
                 <p class="paragraph">Feature extraction is the most important step for efficiently clustering data. Naive feature extraction is simple but not accurate for finding more distinct features of online communities. Convolutional Neural Networks are really powerful in feature extraction from image data. LSTMs are more robust than standard RNNs given how they overcome the problems of vanishing/exploding gradients. They are highly suitable for text data. Combining CNN and LSTM features provides an accurate representation of an Instagram post.</p>
             </div>
         </div>
@@ -380,7 +389,7 @@
                     <h4>Features Engineering</h4>
                     <p class="paragraph">
                         How to distinguish brands and retailers accounts from consumers accounts? Which are the features, and characteristics that discriminate the two classes?</p>
-                    <p class="paragraph">We're looking for different habits or strategies in the way the content is posted like differences in the number of posts per day or the distribution of posts over the time of the day, or again tags and mentions usage. The underlying assumption to this analisys is that regardless of the actual content of the posts, the behavior of the user online can be a good indicator of wether or not we're in presence of a consumer. More indication about the users nature can be found in what kind of content the user uses to present herself on Instagram, such as the profile picture and the biography.
+                    <p class="paragraph">We're looking for different habits or strategies in the way the content is posted like differences in the number of posts per day or the distribution of posts over the time of the day, or again tags and mentions usage. The underlying assumption to this analisys is that regardless of the actual content of the posts, the behaviour of the user online can be a good indicator of wether or not we're in presence of a consumer. More indication about the users nature can be found in what kind of content the user uses to present herself on Instagram, such as the profile picture and the biography.
                     </p>
                     <p class="paragraph">In order to find the correct features to distinguish users of the two classes we started from the most simple and raw data we had: accounts metadata. Some preliminar analisys were conducted representing each users with all of the account metadata available such as:</p>
                     <ul>
@@ -399,10 +408,72 @@
                     <h6><b>Posting hours</b></h6>
                     <p class="paragraph">Keeping in mind our assumption we looked for a first very simple posting strategy: we tried to compare the times at which the two classes of users uploaded their posts. Brands and Retailers may try to concentrate their posts in specific times of the day in order to maximize the exposure of their content to consumers. These were the resulting distributions:</p>
                     <div class="row">
-                        <div class="col-xl-6" style="height: 400px; background: url(img/consumers_hours.svg) 50% 50% no-repeat; background-size: contain;"></div>
-                        <div class="col-xl-6" style="height: 400px; background: url(img/brands_retailers_hours.png) 50% 50% no-repeat; background-size: contain;"></div>
-                        <p class="paragraph">We can clearly observe that the best cluster count is between 4 and 5</p>
+                        <div class="col-xl-2"></div>
+                        <div class="col-xl-4" style="height: 400px; background: url(img/consumers_hours.svg) 50% 50% no-repeat; background-size: contain;"></div>
+                        <div class="col-xl-4" style="height: 400px; background: url(img/brands_retailers_hours.png) 50% 50% no-repeat; background-size: contain;"></div>
+                        <div class="col-xl-2"></div>
+                        <p class="paragraph" style="margin-left: 15px; margin-right: 15px">In this case we can't observe a meaningful difference in the distribution of posts over time, so it is not going to serve us as a feature to distinguish the two classes.</p>
                     </div>
+                    <h6><b>Tags and Mentions</b></h6>
+                    <p class="paragraph">As we stated before we're not looking directly at content, but we are rather trying to define a common behaviour. In this case we look for regularity of usage of tags and mentions. Brands and retailers tend to use tags and mentions in a strategic way in order to target a given audience, while normal consumers usually don’t; a very simple approach is the following: build a vector counting the number of times a tag was used by a user, then compute mean and variance of that vector. Using this same approach with mentions and adding these 4 features to the representation of a user brought slight improvements to the classifier.</p>
+                    <h6><b>Profile Pictures</b></h6>
+                    <p class="paragraph">In the case of profile pictures there were two completely different behaviours that could easily be recognized just looking at the users profiles: brands and retailers have a logo or text in their profile picture, whereas consumers have a picture of themselves, usually their face. By using the the OpenCV library, more specifically Haar Cascades, we were able to perform face detection on the users profile pictures and add that as a relevant picture. Moreover we used the tesseract ocr in order to detect the presence of text in the picture. These two features were really relevant and improved the classifier performance.</p>
+                    <div class="row">
+                        <div class="col-xl-2"></div>
+                        <div class="col-xl-4" style="height: 400px; background: url(img/face.png) 50% 50% no-repeat; background-size: contain;"></div>
+                        <div class="col-xl-4" style="height: 400px; background: url(img/Logo-sirenuse-size.png) 50% 50% no-repeat; background-size: contain;"></div>
+                        <div class="col-xl-2"></div>
+                    </div>
+                    <h6><b>Biographies</b></h6>
+                    <p class="paragraph">As for profile pictures, bios are used by users to describe themselves, so it is to be expected that the vocabulary used by the two classes of users differs in a relevant way. Moreover usually Instagram bios are not complete sentences, but rather a sequence of words that describe the user. For this reason we used a Count Vectorizer wich takes in input the bio text and returns a vector counting the occurrencies of each word. As expected the results differed quite a lot!</p>
+                    <div class="row">
+                        <div class="col-xl-2"></div>
+                        <div class="col-xl-4" style="height: 400px; background: url(img/consum_vocab.svg) 50% 50% no-repeat; background-size: contain;"></div>
+                        <div class="col-xl-4" style="height: 400px; background: url(img/brands_vocab.svg) 50% 50% no-repeat; background-size: contain;"></div>
+                        <div class="col-xl-2"></div>
+                    </div>
+                    <p class="paragraph">Adding the presence of words from these vocabularies in the bios of the users showed improvements in the results of the classifier.</p>
+                    <h6><b>Results</b></h6>
+                    <p class="paragraph">The following results were obtained using 3 fold cross validation and grid search for the parameters optimization</p>
+                    <div class="row">
+                        <div class="col-xl-3">
+                            <p><u>Support Vector Classifier</u></p>
+                            <ul>
+                                <li>Recall mean: 0.8904</li>
+                                <li>Precision mean: 0.5383</li>
+                                <li>F1 mean: 0.6707</li>
+                                <li>Accuracy mean: 0.8131</li>
+                            </ul>
+                        </div>
+                        <div class="col-xl-3">
+                            <p><u>Logistic Regression</u></p>
+                            <ul>
+                                <li>Recall mean: 0.7602</li>
+                                <li>Precision mean: 0.6241</li>
+                                <li>F1 mean: 0.6845</li>
+                                <li>Accuracy mean: 0.8511</li>
+                            </ul>
+                        </div>
+                        <div class="col-xl-3">
+                            <p><u>Multi Layer Perceptron Classifier</u></p>
+                            <ul>
+                                <li>Recall mean: 0.6369</li>
+                                <li>Precision mean: 0.7153</li>
+                                <li>F1 mean: 0.6689</li>
+                                <li>Accuracy mean: 0.8642</li>
+                            </ul>
+                        </div>
+                        <div class="col-xl-3">
+                            <p><u>Random Forest Classifier</u></p>
+                            <ul>
+                                <li>Recall mean: 0.6918</li>
+                                <li>Precision mean: 0.7511</li>
+                                <li>F1 mean: 0.7195</li>
+                                <li>Accuracy mean: 0.8847</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <p class="paragraph">Since the purpose of this classifier is to detect brands and retailers profiles in order to remove their posts from the clustering, we aim to get the highest possible recall as it will remove the highest number of unwanted posts. False negatives in this case have a much higher cost than false positives (brands and retailers average number of posts per year are 335, versus 160 for consumers). Thus in this setting Support Vector Classifier is the best performing classifier for the task.</p>
                 </div>
             </div>
         </div>
