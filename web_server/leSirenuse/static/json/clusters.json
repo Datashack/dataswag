@@ -7,10 +7,7 @@
     },
     "satellites": [
        { "name": "Night People", "size": 750, "distance": 0.7, "fill": "#135E94"},
-       { "name": "Sport Addicts", "size": 500, "distance": 0.3, "fill": "#5EB1BF"},
-       { "name": "Fashion Victims", "size": 250, "distance": 0.1, "fill": "#CDEDF6" },
-       { "name": "Travel Spirits", "size": 100, "distance": 0.5, "fill": "#ECA189" },
-       { "name": "Food Maniacs", "size": 300, "distance": 0.6, "fill": "#6C99FF" }
+       { "name": "Sport Addicts", "size": 500, "distance": 0.3, "fill": "#5EB1BF"}
     ]
   },
   {
@@ -18,11 +15,8 @@
         "name": "Night People", "size": 750, "fill": "#135E94"
       },
       "satellites": [
-         { "name": "Summer Lovers", "size": 1000, "distance": 0.7 },
-         { "name": "Sport Addicts", "size": 500, "distance": 0.5 },
-         { "name": "Fashion Victims", "size": 250, "distance": 0.1 },
-         { "name": "Travel Spirits", "size": 100, "distance": 0.9 },
-         { "name": "Food Maniacs", "size": 300, "distance": 0.6 }
+         { "name": "Summer Lovers", "size": 1000, "distance": 0.7, "fill": "#EF6969" },
+         { "name": "Sport Addicts", "size": 500, "distance": 0.5, "fill": "#5EB1BF" }
       ]
     },
     {
@@ -32,54 +26,9 @@
           "fill": "#5EB1BF"
         },
         "satellites": [
-           { "name": "Summer Lovers", "size": 1000, "distance": 0.3 },
-           { "name": "Night People", "size": 750, "distance": 0.5 },
-           { "name": "Fashion Victims", "size": 250, "distance": 0.4 },
-           { "name": "Travel Spirits", "size": 100, "distance": 0.3 },
-           { "name": "Food Maniacs", "size": 300, "distance": 0.6 }
+           { "name": "Summer Lovers", "size": 1000, "distance": 0.3, "fill": "#EF6969" },
+           { "name": "Night People", "size": 750, "distance": 0.5, "fill": "#135E94" }
         ]
-      },
-      {
-          "center": {
-            "name": "Fashion Victims",
-            "size": 250,
-            "fill": "#CDEDF6"
-          },
-          "satellites": [
-             { "name": "Summer Lovers", "size": 1000, "distance": 0.1 },
-             { "name": "Night People", "size": 750, "distance": 0.1 },
-             { "name": "Sport Addicts", "size": 500, "distance": 0.4 },
-             { "name": "Travel Spirits", "size": 100, "distance": 0.7 },
-             { "name": "Food Maniacs", "size": 300, "distance": 0.6 }
-          ]
-        },
-        {
-            "center": {
-              "name": "Travel Spirits",
-              "size": 100,
-              "fill": "#ECA189"
-            },
-            "satellites": [
-               { "name": "Summer Lovers", "size": 1000, "distance": 0.5 },
-               { "name": "Night People", "size": 750, "distance": 0.9 },
-               { "name": "Sport Addicts", "size": 500, "distance": 0.3 },
-               { "name": "Fashion Victims", "size": 250, "distance": 0.7 },
-               { "name": "Food Maniacs", "size": 300, "distance": 0.6 }
-            ]
-          },
-          {
-              "center": {
-                "name": "Food Maniacs",
-                "size": 300,
-                "fill": "#6C99FF"
-              },
-              "satellites": [
-                 { "name": "Summer Lovers", "size": 1000, "distance": 0.6 },
-                 { "name": "Night People", "size": 750, "distance": 0.6 },
-                 { "name": "Sport Addicts", "size": 500, "distance": 0.6 },
-                 { "name": "Fashion Victims", "size": 250, "distance": 0.6 },
-                 { "name": "Travel Spirits", "size": 100, "distance": 0.6 }
-              ]
-            }
+      }
 ]
 }

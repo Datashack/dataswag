@@ -1,15 +1,63 @@
-{"tags":[
-  {"tag": "SS18", "score": 95},
-  {"tag": "summeroutfit", "score": 87},
-  {"tag": "MFW", "score": 75},
-  {"tag": "sea", "score": 71},
-  {"tag": "sky", "score": 67},
-  {"tag": "swimsuit", "score": 55},
-  {"tag": "lovelyday", "score": 95},
-  {"tag": "handmade", "score": 67},
-  {"tag": "beach", "score": 15},
-  {"tag": "fashionlover", "score": 8},
-  {"tag": "fashionmood", "score": 27},
-  {"tag": "menswear", "score": 115}
+{
+  "tags":[
+    {
+      "cluster":"Summer_Lovers",
+      "children":[
+        {"tag": "travel", "score": 333},
+        {"tag": "photooftheday", "score": 282},
+        {"tag": "love", "score": 259},
+        {"tag": "instagood", "score": 240},
+        {"tag": "italy", "score": 234},
+        {"tag": "handmade", "score": 202},
+        {"tag": "fashion", "score": 196},
+        {"tag": "architecture", "score": 190},
+        {"tag": "vacation", "score": 178},
+        {"tag": "picoftheday", "score": 176},
+        {"tag": "design", "score": 176},
+        {"tag": "fun", "score": 175},
+        {"tag": "holiday", "score": 168},
+        {"tag": "travelgram", "score": 161},
+        {"tag": "summer", "score": 156}
+      ]
+    },
+    {
+      "cluster":"Night_People",
+      "children":[
+        {"tag": "interiordesign", "score": 265},
+        {"tag": "architecture", "score": 187},
+        {"tag": "italy", "score": 167},
+        {"tag": "amalficoast", "score": 165},
+        {"tag": "beauty", "score": 161},
+        {"tag": "interiorinspiration", "score": 161},
+        {"tag": "design", "score": 137},
+        {"tag": "positano", "score": 133},
+        {"tag": "interiors", "score": 132},
+        {"tag": "interiorstyling", "score": 130},
+        {"tag": "luxury", "score": 106},
+        {"tag": "interiordesigner", "score": 99},
+        {"tag": "homedecor", "score": 98},
+        {"tag": "love", "score": 94},
+        {"tag": "inspiration", "score": 92}
+      ]
+    },
+    {
+      "cluster":"Sport_Addicts",
+      "children":[
+        {"tag": "style", "score": 820},
+        {"tag": "fashion", "score": 817},
+        {"tag": "italy", "score": 502},
+        {"tag": "design", "score": 449},
+        {"tag": "love", "score": 409},
+        {"tag": "interiordesign", "score": 380},
+        {"tag": "summer", "score": 379},
+        {"tag": "instadaily", "score": 368},
+        {"tag": "handmade", "score": 339},
+        {"tag": "beachwear", "score": 314},
+        {"tag": "inspiration", "score": 312},
+        {"tag": "amalficoast", "score": 309},
+        {"tag": "resortwear", "score": 305},
+        {"tag": "beach", "score": 299}
+      ]
+    }
   ]
-}
+  }

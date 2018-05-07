@@ -1,10 +1,8 @@
-
 import skimage
 import os
 import pandas as pd
 import numpy as np
 from IPython.display import display
-import matplotlib
 import matplotlib.pyplot as plt
 from skimage import data
 from skimage import io
@@ -29,7 +27,7 @@ class Main:
     #Helper Function to get images from train path
     def get_target_posts(self):
         self.target_posts = []
-        for j in glob.glob(self.target_path + '/*.jpg'):
+        for j in glob.glob(self.target_path + '/*'):
             temp_dict = {}
             file_name = j.replace(self.target_path,'')[1:]
             try:
@@ -44,7 +42,7 @@ class Main:
                 except FileNotFoundError:
                     continue
                 temp_dict['Caption'] = caption
-            temp_dict['File'] = j.split('/')[-1]
+            temp_dict['File'] = file_name
             temp_dict['Image'] = np.array(img)
             self.target_posts.append(temp_dict)
         print("Number of posts loaded:", len(self.target_posts))

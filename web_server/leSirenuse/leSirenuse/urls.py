@@ -15,15 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-import img_upload.views
 import leSirenuse.views
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('img_upload/', img_upload.views.img_upload),
+    path('img_upload/', leSirenuse.views.img_upload),
     path('get_ranked_pics/', leSirenuse.views.get_ranked_pics),
-    path('get_scored_pics/', leSirenuse.views.get_scored_pics)
+    path('get_scored_pics/', leSirenuse.views.get_scored_pics),
+    path('get_brands_similarity/', leSirenuse.views.get_brands_similarity)
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(
     settings.STATIC_URL, document_root=settings.STATICFILES_DIRS)

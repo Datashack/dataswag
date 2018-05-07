@@ -34,11 +34,11 @@ prepare_squid = function (target) {
 			.attr("class", "links")
 			.attr("stroke-width", 2)
 			.attr("x1", function (d, i) {
-				var theta = i * splits + Math.PI / 6;
+				var theta = i * splits + Math.PI / 2;
 				return (result.center.size / 20) * Math.cos(theta);
 			})
 			.attr("y1", function (d, i) {
-				var theta = i * splits + Math.PI / 6;
+				var theta = i * splits + Math.PI / 2;
 				return (result.center.size / 20) * Math.sin(theta);
 			})
 			.style("stroke", "#99aeb5");
@@ -83,14 +83,14 @@ prepare_squid = function (target) {
 			.transition()
 			.duration(2000)
 			.attr("cy", function (d, i) {
-				var theta = i * splits + Math.PI / 6;
+				var theta = i * splits + Math.PI / 2;
 				var rc = result.center.size / 20;
 				var d = d.distance * (w / 2);
 				var rs = parseInt(d3.select(this).attr("r"));
 				return (rc + d + rs) * Math.sin(theta);
 			})
 			.attr("cx", function (d, i) {
-				var theta = i * splits + Math.PI / 6;
+				var theta = i * splits + Math.PI / 2;
 				var rc = result.center.size / 20;
 				var d = d.distance * (w / 2);
 				var rs = parseInt(d3.select(this).attr("r"));
@@ -102,13 +102,13 @@ prepare_squid = function (target) {
 			.transition()
 			.duration(2000)
 			.attr("y2", function (d, i) {
-				var theta = i * splits + Math.PI / 6;
+				var theta = i * splits + Math.PI / 2;
 				var rc = result.center.size / 20;
 				var d = d.distance * (w / 2);
 				return (rc + d) * Math.sin(theta);
 			})
 			.attr("x2", function (d, i) {
-				var theta = i * splits + Math.PI / 6;
+				var theta = i * splits + Math.PI / 2;
 				var rc = result.center.size / 20;
 				var d = d.distance * (w / 2);
 				return (rc + d) * Math.cos(theta);
@@ -165,7 +165,7 @@ function plot_squid(target) {
 		var new_center = result.center;
 		var new_center_DOM = d3.select("#" + new_center.name.replace(" ", "_"));
 
-		var new_theta = (new_center_DOM.attr("i")) * splits + Math.PI / 6;
+		var new_theta = (new_center_DOM.attr("i")) * splits + Math.PI / 2;
 		var rc = result.center.size / 20;
 		var d = old_center.distance * (w / 2);
 		var rs = parseInt(old_center_DOM.attr("r"));
@@ -206,14 +206,14 @@ function plot_squid(target) {
 			.transition()
 			.duration(2000)
 			.attr("cy", function (d) {
-				var theta = d3.select(this).attr("i") * splits + Math.PI / 6;
+				var theta = d3.select(this).attr("i") * splits + Math.PI / 2;
 				var rc = result.center.size / 20;
 				var d = d.distance * (w / 2);
 				var rs = parseInt(d3.select(this).attr("r"));
 				return (rc + d + rs) * Math.sin(theta);
 			})
 			.attr("cx", function (d) {
-				var theta = d3.select(this).attr("i") * splits + Math.PI / 6;
+				var theta = d3.select(this).attr("i") * splits + Math.PI / 2;
 				var rc = result.center.size / 20;
 				var d = d.distance * (w / 2);
 				var rs = parseInt(d3.select(this).attr("r"));
@@ -224,23 +224,23 @@ function plot_squid(target) {
 		setTimeout(function () {
 		links.attr("y1", function () {
 				var i = d3.select(this).attr("i");
-				var theta = i * splits + Math.PI / 6;
+				var theta = i * splits + Math.PI / 2;
 				return rc * Math.sin(theta);
 			})
 			.attr("x1", function () {
 				var i = d3.select(this).attr("i");
-				var theta = i * splits + Math.PI / 6;
+				var theta = i * splits + Math.PI / 2;
 				return rc * Math.cos(theta);
 			})
 			.attr("y2", function () {
 				var i = d3.select(this).attr("i");
-				var theta = i * splits + Math.PI / 6;
+				var theta = i * splits + Math.PI / 2;
 				var d = circles.filter("[i='" + i + "']").data()[0].distance * (w / 2);
 				return (d + rc) * Math.sin(theta);
 			})
 			.attr("x2", function () {
 				var i = d3.select(this).attr("i");
-				var theta = i * splits + Math.PI / 6;
+				var theta = i * splits + Math.PI / 2;
 				var d = circles.filter("[i='" + i + "']").data()[0].distance * (w / 2);
 				return (d + rc) * Math.cos(theta);
 			});}, 100);
@@ -288,13 +288,12 @@ plot_pictures = function () {
 						r: parseInt(d3.select(this).attr("r")),
 						cx: parseInt(d3.select(this).attr("cx")),
 						cy: parseInt(d3.select(this).attr("cy")),
-						name: d3.select(this).attr("id").replace("_", " "),
+						name: d3.select(this).attr("id"),
 						fill: d3.select(this).attr("fill")
 					}
 					comm_pics = data.filter(function (d) {
 						return d.community === comm.name
 					})
-
 					nodes = d3.select(".all")
 						.selectAll("." + comm.name + "_pics")
 						.data(comm_pics)

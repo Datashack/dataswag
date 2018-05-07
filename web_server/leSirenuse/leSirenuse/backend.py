@@ -1,59 +1,54 @@
-import Predicting
-
-target_path = "/Users/kmotwani/Desktop/Me/Education/Courses/Capstone Project/Target/"
-caption_flag = False
-
-#Create object
-obj_pred = Predicting.Main(target_path, caption_flag)
-class Brands_Similarity:
-
-    def __init__(self):
-        #Define target path and create test object
-        target_path = "/Users/kmotwani/Desktop/Me/Education/Courses/Capstone Project/Target/"
-        caption_flag = True
-
-        #Create object
-        self.obj_pred = Predicting.Main(target_path, caption_flag)
-
-        #Load Model
-        self.model_images = self.obj_pred.load_model("/Users/kmotwani/Desktop/Me/Education/Courses/Capstone Project/model_images.plk")
-        self.model_users = self.obj_pred.load_model("/Users/kmotwani/Desktop/Me/Education/Courses/Capstone Project/model_users.plk")
+from leSirenuse.clustering import Predicting
+from leSirenuse.clustering import Image_CNN
+from sklearn.externals import joblib
+from scipy import stats
+import pandas as pd
 
 
-        #Get Target Images
-        df_target = obj_pred.get_target_posts()
+class Backend:
+    def __init__(self, target_path):
+        self.df_target_presence = None
+        self.obj_cnn = None
+        print('importing Predicting')
+        self.obj_pred = Predicting.Main(target_path, False)
+        print('importing images model')
+        self.model_images = self.obj_pred.load_model("leSirenuse/clustering/model_images.plk")
+        print('importing users model')
+        self.model_users = self.obj_pred.load_model("leSirenuse/clustering/model_users.plk")
 
-        display(df_target.head())
+    def compute_pics_presence(self):
+        #CNN initialization has to be done by the same thread calling predict_image
+        if self.obj_cnn is None:
+            self.obj_cnn = Image_CNN.Main('leSirenuse/clustering/KRM_weights-260-0.69.hdf5')
+        df_target = self.obj_pred.get_target_posts()
 
-        if caption_flag:
-            #Get embedding for captions
-            embedding_captions = obj_lstm.embedd_text(df_target['Caption'])
+        #Import Model and Embedding - create image cnn obj
+        prediction = self.obj_cnn.predict_image(df_target['Image'])
+        df_target = self.obj_cnn.combine_image(df_target, prediction, "CNN_Feature_")
+        #Convert to Features
+        extra_cols = ['File', 'Image']
+        self.df_target_presence = self.obj_pred.get_cluster_presence(df_target, extra_cols, self.model_images)
 
-            #Get Predictions
-            prediction = obj_lstm.predict_text(embedding_captions)
+    def get_scores(self, target):
+        probabilities = self.df_target_presence[['Prob_0', 'Prob_1', 'Prob_2', 'Prob_3']]
+        files = []
+        KL= []
+        community = []
+        for i in range(probabilities.shape[0]):
+            pic_dist = list(probabilities.iloc[i])
+            for v in enumerate(self.model_users.means_):
+                clustercenter = (v[1])
+                KLdiv = stats.entropy(pk=clustercenter, qk=pic_dist)
+                if (KLdiv == float('inf')):
+                    KLdiv = 563.2
+                KL.append(KLdiv)
+                files.append(str(self.df_target_presence.File[i]))
+                community.append((v[0]))
+        KLdivergencedf = (pd.DataFrame({"KL_score": KL,"picture_uploaded": files, 'community': community }))
+        scores = KLdivergencedf.sort_values('KL_score').reset_index()
+        return scores
 
-            #Combine Dataframe with Text Features
-            df_target = obj_lstm.combine_text(df_target, prediction, "LSTM_Feature_")
-            display(df_target.head())
-
-
-#Get embedding for captions
-prediction = obj_cnn.predict_image(df_target['Image'])
-
-#Combine Prediction
-df_target = obj_cnn.combine_image(df_target, prediction, "CNN_Feature_")
-display(df_target.head())
-
-#Convert to Features
-if caption_flag:
-    extra_cols = ['Caption','File','Image']
-else:
-    extra_cols = ['File','Image']
-df_target_presence = obj_pred.get_cluster_presence(df_target, extra_cols, model_images)
-display(df_target_presence.head())
-
-
-#Get Company Distances
-extra_cols = ['File','Prediction']
-company_final_df = obj_pred.get_dist2comp(df_target_presence, extra_cols)
-display(company_final_df.head())
+    def get_competitors_distance(self):
+        extra_cols = ['File','Prediction']
+        company_final_df = self.obj_pred.get_dist2comp(self.df_target_presence, extra_cols)
+        return company_final_df

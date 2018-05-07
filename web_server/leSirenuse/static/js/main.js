@@ -3,7 +3,7 @@ rank_images = function (target) {
 		url: "http://localhost:8000/get_ranked_pics/",
 		type: "POST",
 		data: {
-			'target': target
+			'target': target,
 		},
 		dataType: "json",
 		success: function (result) {
@@ -25,7 +25,7 @@ rank_images = function (target) {
 			pics_cont.data(data)
 				.append("a")
 				.attr("href", function (d) {
-					return "http://localhost:8000/es_tool/single.html?pic=" + d.pic_url;
+					return "http://localhost:8000/es_tool/single.html?pic=" + d.pic_url + "&target=" + target;
 				})
 				.append("div")
 				.attr("class", "post ranked")
@@ -34,6 +34,13 @@ rank_images = function (target) {
 				})
 				.attr("style", function (d) {
 					return "background: url(http://media.localhost:8000/media/" + d.pic_url + ") 50% 50% no-repeat; background-size:cover;"
+				});
+			
+			pics_cont.data(data)
+				.append("div")
+				.attr("class", "score")
+				.text(function (d) {
+					return "distance: " + d.score.toFixed(2);
 				});
 		}
 	});
@@ -60,7 +67,7 @@ fill_dropdown = function (target) {
 			.attr("class", "dropdown-item")
 			.attr("href", "#")
 			.attr("onclick", function (d) {
-				return "target_change('" + d.name + "')";
+				return "target_change('" + d.name.replace(" ", "_") + "')";
 			})
 			.html(function (d) {
 				return d.name;

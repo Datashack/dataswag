@@ -260,7 +260,7 @@ body {
 	align-items: flex-start;
 	flex-wrap: wrap;
 	overflow: auto;
-	margin: 20px auto;
+	margin: 0px auto;
 	position: absolute;
 }
 
