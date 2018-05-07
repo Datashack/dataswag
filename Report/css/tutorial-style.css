@@ -58,17 +58,8 @@ a {
   text-align: center;
 }
 
-#upload-section, #rank-section, #evaluate-section, #bonus-section {
-  margin-top: 20vh;
-  border-top: 1px solid #494949;
-}
-
 #upload-mockup, #rank-mockup-2, #evalute-mockup, #footer{
-  margin-top: 16vh;
-}
-
-#mockup-margin{
-  padding: 0;
+  margin-top: 3vh;
 }
 
 #rank-right {
@@ -162,7 +153,6 @@ a {
   right: 0px;
   margin-right: 6vw;
   position: absolute;
-  top:10vh;
 }
 
 .paragraph {
