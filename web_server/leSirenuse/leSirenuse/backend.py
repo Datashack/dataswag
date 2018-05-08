@@ -8,7 +8,6 @@ import pandas as pd
 class Backend:
     def __init__(self, target_path):
         self.df_target_presence = None
-        self.obj_cnn = None
         print('importing Predicting')
         self.obj_pred = Predicting.Main(target_path, False)
         print('importing images model')
@@ -18,8 +17,8 @@ class Backend:
 
     def compute_pics_presence(self):
         #CNN initialization has to be done by the same thread calling predict_image
-        if self.obj_cnn is None:
-            self.obj_cnn = Image_CNN.Main('leSirenuse/clustering/KRM_weights-260-0.69.hdf5')
+        print('importing CNN')
+        self.obj_cnn = Image_CNN.Main('leSirenuse/clustering/KRM_weights-260-0.69.hdf5')
         df_target = self.obj_pred.get_target_posts()
 
         #Import Model and Embedding - create image cnn obj

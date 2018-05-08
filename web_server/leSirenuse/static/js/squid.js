@@ -24,6 +24,14 @@ prepare_squid = function (target) {
 		//squid.selectAll("*").remove();
 
 		//add links to svg (only if empty)
+		console.log(result)
+
+		var scaled_distance = d3.scaleLinear()
+		.domain([0, d3.max(result.satellites, function (d) {
+			return d.distance;
+		})])
+		.range([0, w/2])
+		
 		var links = all.selectAll("line")
 			.data(nodes)
 			.enter()
@@ -85,14 +93,14 @@ prepare_squid = function (target) {
 			.attr("cy", function (d, i) {
 				var theta = i * splits + Math.PI / 2;
 				var rc = result.center.size / 20;
-				var d = d.distance * (w / 2);
+				var d = scaled_distance(d.distance);
 				var rs = parseInt(d3.select(this).attr("r"));
 				return (rc + d + rs) * Math.sin(theta);
 			})
 			.attr("cx", function (d, i) {
 				var theta = i * splits + Math.PI / 2;
 				var rc = result.center.size / 20;
-				var d = d.distance * (w / 2);
+				var d = scaled_distance(d.distance);
 				var rs = parseInt(d3.select(this).attr("r"));
 				return (rc + d + rs) * Math.cos(theta);
 			});
@@ -104,13 +112,13 @@ prepare_squid = function (target) {
 			.attr("y2", function (d, i) {
 				var theta = i * splits + Math.PI / 2;
 				var rc = result.center.size / 20;
-				var d = d.distance * (w / 2);
+				var d = scaled_distance(d.distance);
 				return (rc + d) * Math.sin(theta);
 			})
 			.attr("x2", function (d, i) {
 				var theta = i * splits + Math.PI / 2;
 				var rc = result.center.size / 20;
-				var d = d.distance * (w / 2);
+				var d = scaled_distance(d.distance);
 				return (rc + d) * Math.cos(theta);
 			});
 
@@ -154,6 +162,12 @@ function plot_squid(target) {
 		var result = clusters_file.clusters.filter(function (squid) {
 			return squid.center.name === target.replace("_", " ")
 		})[0]
+		var scaled_distance = d3.scaleLinear()
+		.domain([0, d3.max(result.satellites, function (d) {
+			return d.distance;
+		})])
+		.range([0, w/2])
+				
 		var nodes = result.satellites;
 		var splits = (2 * Math.PI) / nodes.length;
 		var squid = d3.select("#squid");
@@ -208,14 +222,14 @@ function plot_squid(target) {
 			.attr("cy", function (d) {
 				var theta = d3.select(this).attr("i") * splits + Math.PI / 2;
 				var rc = result.center.size / 20;
-				var d = d.distance * (w / 2);
+				var d = scaled_distance(d.distance);
 				var rs = parseInt(d3.select(this).attr("r"));
 				return (rc + d + rs) * Math.sin(theta);
 			})
 			.attr("cx", function (d) {
 				var theta = d3.select(this).attr("i") * splits + Math.PI / 2;
 				var rc = result.center.size / 20;
-				var d = d.distance * (w / 2);
+				var d = scaled_distance(d.distance);
 				var rs = parseInt(d3.select(this).attr("r"));
 				return (rc + d + rs) * Math.cos(theta);
 			});
@@ -235,13 +249,13 @@ function plot_squid(target) {
 			.attr("y2", function () {
 				var i = d3.select(this).attr("i");
 				var theta = i * splits + Math.PI / 2;
-				var d = circles.filter("[i='" + i + "']").data()[0].distance * (w / 2);
+				var d = scaled_distance(circles.filter("[i='" + i + "']").data()[0].distance);
 				return (d + rc) * Math.sin(theta);
 			})
 			.attr("x2", function () {
 				var i = d3.select(this).attr("i");
 				var theta = i * splits + Math.PI / 2;
-				var d = circles.filter("[i='" + i + "']").data()[0].distance * (w / 2);
+				var d =  scaled_distance(circles.filter("[i='" + i + "']").data()[0].distance);
 				return (d + rc) * Math.cos(theta);
 			});}, 100);
 

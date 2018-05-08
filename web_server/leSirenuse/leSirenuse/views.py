@@ -12,10 +12,6 @@ import random
 
 backend = leSirenuse.backend.Backend(settings.MEDIA_ROOT)
 
-# Initialize recommender object once, so that the plk model is imported just
-# on server startup
-# recommender = kmrec()
-
 @csrf_exempt
 def img_upload(request):
     print('removing previous files')

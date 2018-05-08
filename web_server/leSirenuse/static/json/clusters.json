@@ -3,31 +3,31 @@
     "center": {
       "name": "Summer Lovers",
       "fill": "#EF6969",
-      "size": 1000
+      "size": 50
     },
     "satellites": [
-       { "name": "Night People", "size": 750, "distance": 0.7, "fill": "#135E94"},
-       { "name": "Sport Addicts", "size": 500, "distance": 0.3, "fill": "#5EB1BF"}
+       { "name": "Night People", "size": 750, "distance": 0.098130, "fill": "#135E94"},
+       { "name": "Sport Addicts", "size": 500, "distance": 0.030746, "fill": "#5EB1BF"}
     ]
   },
   {
       "center": {
-        "name": "Night People", "size": 750, "fill": "#135E94"
+        "name": "Night People", "size": 16, "fill": "#135E94"
       },
       "satellites": [
-         { "name": "Summer Lovers", "size": 1000, "distance": 0.7, "fill": "#EF6969" },
-         { "name": "Sport Addicts", "size": 500, "distance": 0.5, "fill": "#5EB1BF" }
+         { "name": "Summer Lovers", "size": 1000, "distance": 0.098130, "fill": "#EF6969" },
+         { "name": "Sport Addicts", "size": 500, "distance": 0.126712, "fill": "#5EB1BF" }
       ]
     },
     {
         "center": {
           "name": "Sport Addicts",
-          "size": 500,
+          "size": 97,
           "fill": "#5EB1BF"
         },
         "satellites": [
-           { "name": "Summer Lovers", "size": 1000, "distance": 0.3, "fill": "#EF6969" },
-           { "name": "Night People", "size": 750, "distance": 0.5, "fill": "#135E94" }
+           { "name": "Summer Lovers", "size": 1000, "distance": 0.030746, "fill": "#EF6969" },
+           { "name": "Night People", "size": 750, "distance": 0.126712, "fill": "#135E94" }
         ]
       }
 ]

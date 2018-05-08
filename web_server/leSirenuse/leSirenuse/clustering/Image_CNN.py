@@ -3,12 +3,14 @@ from keras.models import load_model
 import numpy as np
 from keras.models import Model
 import tqdm
+from keras import backend as K
 
 class Main:
 
     #Initialize with saved model and embeddings
     def __init__(self, path_model):
-        self.model = load_model(path_model)
+        K.clear_session()
+        self.model = load_model(path_model)        
 
     #Helper function to create feature maps
     def get_feature_maps(self, layer_id, input_text):
