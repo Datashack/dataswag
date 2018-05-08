@@ -76,9 +76,9 @@
 						<h1>INTRODUCTION AND SCOPE</h1>
 					</div>
 					<p class="paragraph">
-						Le Sirenuse Positano is a luxury 5 star hotel located in Positano, on the Amalfi Coast. Right in front of the hotel, in the Emporio Sirenuse store, tourists and guests can find a collection of dresses and swimwear perfectly aligned with the Mediterranean style of the hotel. The collection, curated by the hotel owner Mrs. Carla Sersale, is also sold online on a dedicated website and on different others online channels. Both the hotel and the store have an official Instagram account, the first one having a much bigger influence with respect to the one of the store. In this setting we were asked to find a way to improve the online presence of the clothing brand by leveraging social media platforms; while protecting its heritage, we wanted to enhance the popularity of the fashion brand independently.
+						Le Sirenuse Positano is a luxury 5 star hotel located in Positano, on the Amalfi Coast. The Emporio Sirenuse store stands in front of the hotel. Here, tourists and guests can find a collection of dresses and swimwear aligned with the Mediterranean style of the hotel. The collection, curated by the hotel owner Mrs. Carla Sersale, is also sold online on a dedicated website and on different e-commerce channels. Both the hotel and the store have an official Instagram account, though the hotel has a much wider influence. The goal of this project is to improve the online presence of the clothing brand by leveraging social media platforms; while protecting its heritage. 
 						<br>
-						<br> In order to improve the social media presence of the brand and produce relevant insights for the brand managers we needed to intervene on two fronts: we had to identify and characterize communities of users among the followers of the brand and its competitors; given that information we would allow the brand to post relevant content for the community it decides to target. To accomplish those two goals we thought of a complete pipeline that would incorporate two phases: in the first phase we detect communities of users based on their content (pictures and captions); the second one instead, given a set of pictures that the user would like to post, ranks those pictures based on the target community chosen by the user among the ones found during the first phase.
+						<br> In this project, we address how a luxury brand may utilize a growing digital economy using big data, while maintaining its heritage. Our proposed tool, Frank, uses a human-in-the-loop model to identify relevant communities and suggest a post’s text, hashtags, and images. This system is housed in an interactive visualization interface designed for intuitive analysis.
 					</p>
 				</div>
 				<div class="col-xl-6">
@@ -318,25 +318,13 @@
 						<p class="paragraph">The intended user, a social media manager for example, will upload his or her pictures (from a photoshoot) to the tool. His/Her goal is to create a post that best appeals to a chosen community. In other words, the social media manager wants to optimize his/her image, caption, and hashtag for a given community.</p>
 						<p class="paragraph">A post can be optimized by two metrics: </p>
 						<ol>
-							<li>Whether a post will be similar to a community</li>
 							<li>Whether a post will be popular to a community</li>
+							<li>Whether a post will be similar to a community</li>
 						</ol>
-						<p class="paragraph">The later requires an “engagement metric,” or a score that reflects the likelihood it will be received positively by the population; we address these two issues below.</p>
-						<h4>Suggesting Photos with Community Similarity </h4>
-						<p class="paragraph">Each picture uploaded by the social media manager is passed through the clustering algorithm, and receives a probability score that the picture belongs to each community. The probability scores that a given picture belongs to each community sums to one. Each community also has its own distribution- the compilation of images that have been passed through the clustering algorithm. </p>
-						<p class="paragraph">Thus, we have probability distributions that we may measure the similarity between using the Kullback-Leibler Divergence (often shortened to just KL divergence).</p>
-						<p class="paragraph">KL Divergences measure the difference between two probability distributions p(x) and q(x):</p>
-						<div class="row">
-							<div class="col-xl-6" style="height: 75px; background: url(img/sum.png) 50% 50% no-repeat; background-size: contain;"></div>
-							<div class="col-xl-6" style="height: 75px; background: url(img/nonnegative.png) 50% 50% no-repeat; background-size: contain;"></div>
-						</div>
-						<p class="paragraph">Therefore, a lower KL divergence score suggests the two distributions are more similar. </p>
-						<div class="row">
-							<div class="col-xl-3"></div>
-							<div class="col-xl-6" style="height: 200px; background: url(img/KL.png) 50% 50% no-repeat; background-size: contain;"></div>
-						</div>
-						<p class="paragraph">Therefore, we can quantitatively measure the similarity or difference between an uploaded picture and the community. Each uploaded picture is iterated and a KL divergence score is computed by comparing each picture’s distribution with the target communities distribution. The KL scores and then ranked, from lowest to highest, to suggest which pictures best match the target communities’ images.</p>
-						<h4>Suggesting Text and Hashtags to Maximize Engagement </h4>
+						<p class="paragraph">The former requires an “engagement metric,” or a score that reflects the likelihood it will be received positively by the population; we address these two issues below.</p>
+
+
+						<h4>Maximizing Engagement </h4>
 						<p class="paragraph">In business, social media engagement measures the public shares, likes and comments for an online business' social media efforts. Engagement is a common metric for evaluating social media performance. While maximizing engagement is best, companies like Facebook, Twitter, and e-commerce retailers differ in how they calculate standardized engagement scores. Engagement scores typically include likes, comments, number of followers, and other metrics like views, mentions, and more.</p>
 						<p class="paragraph">We wanted to predict engagement from the quality of a photo:</p>
 						<div class="row">
@@ -353,15 +341,39 @@
 							<li>Lasso with CV, Polynomial Lasso with CV (varying alpha), with normalizer, MinMaxScaler</li>
 							<li>SVM, Polynomial SVM</li>
 						</ul>
-						<p class="paragraph">We began using the engagement score for linear regressions, but ultimately decided to use a logistic regression. A 0/1 was calculated by whether an engagement score was above or below the median. </p>
-						<p class="paragraph">Ultimately, a standardized score using likes and followers was chosen, then converted to a binomial score, as this performed best in across the supervised machine learning algorithms. We found one reason linear combinations with z scores did not work is because outliers, while useful for the compilation of communities, severely affected engagement scores that used z scores. This is because as a line was attempting to project into a multidimensional space, all of the features were clustered into only a few points. This caused very poor performance on the test set. </p>
-						<p class="paragraph">Once an engagement metric was established, a score was calculated for each post per community. This score was used in recommending hashtags and text for the social media manager’s post. </p>
-						<p class="paragraph">Each post was split between caption and hashtags. Then each of these were transformed into a numerical form using Word2vec. Word2vec is a two-layer neural net that processes text and output a set of vectors. Then, the words said in each post were counted, then multiplied by user engagement score for that post. This was then summed across all possible words to identify the the most “popular” words used within a community, weighted by the engagement score. Therefore, more popular posts would have a higher ranking than posts with little engagement. Now, we have a compilation of popular words and hashtags used by each community. </p>
+						<p class="paragraph">We began using the engagement score for linear regressions, but ultimately converted a score into a binomial metric and chose a logistic regression. This method out-performed all others on the test set. A 0/1 was calculated by whether an engagement score was above or below the median. The final model was a logistic regression SVM, as this supervised machine learning algorithm had the highest test score with an R-squared of .64 </p>
+						<p class="paragraph">One reason linear combinations with z scores did not work is because outliers, while useful for the compilation of communities, severely affected engagement scores that used z scores. This is because as a line was attempting to project into a multidimensional space, all of the features were clustered into only a few points (a score of -8, or 40 for example). This caused very poor performance on the test set. We will return the engagement metric later </p>
+
+
+						<h4>Suggesting Photos using Community Similarity while Maximizing Engagement </h4>
+						<p class="paragraph">Now, looking back at the tool’s pipeline, we can see that a social media manager has uploaded pictures and would like suggested content. Each picture uploaded by the social media manager is passed through the clustering algorithm, and receives a probability score that the picture belongs to each community. The probability scores that a given picture belongs to each community sums to one. Each community also has its own distribution- the compilation of images that have been passed through the clustering algorithm. </p>
+						<p class="paragraph">Thus, we have probability distributions that we may measure the similarity between using the Kullback-Leibler Divergence (often shortened to just KL divergence).</p>
+						<p class="paragraph">KL Divergences measure the difference between two probability distributions p(x) and q(x):</p>
 						<div class="row">
-							<div class="col-xl-6" style="height: 300px; background: url(img/captions.png) 50% 50% no-repeat; background-size: contain; margin-top: -26px;"></div>
+							<div class="col-xl-6" style="height: 75px; background: url(img/sum.png) 50% 50% no-repeat; background-size: contain;"></div>
+							<div class="col-xl-6" style="height: 75px; background: url(img/nonnegative.png) 50% 50% no-repeat; background-size: contain;"></div>
+						</div>
+						<p class="paragraph">Therefore, a lower KL divergence score suggests the two distributions are more similar. </p>
+						<div class="row">
+							<div class="col-xl-3"></div>
+							<div class="col-xl-6" style="height: 200px; background: url(img/KL.png) 50% 50% no-repeat; background-size: contain;"></div>
+						</div>
+						<p class="paragraph">Therefore, we can quantitatively measure the similarity or difference between an uploaded picture and the community. Each uploaded picture is iterated and a KL divergence score is computed by comparing each picture’s distribution with the target communities distribution. The KL scores and then ranked, from lowest to highest, to suggest which pictures best match the target communities’ images.</p>
+
+						</div>
+						<p class="paragraph">Now, we would like to use our trained, and pickled, logistic SVM model to predict whether an incoming image will have a 0/1 (or be a post that is predicted to have ‘engagement.’ Once a score is predicted, we use a linear combination between these scores (0/1) and the KL-Divergence scores. Because it is best to have a low KL divergence score though, we weighted pictures with predicted poor engagement scores (0) to increase their final score. Therefore, we added a 1 to the KL score of pictures that were predicted to be less popular. This was a conservative decision, as many of the images uploaded by the social media manager are expected to be high quality, professional photos with strong lighting and composition. This was qualitatively tested on a sample of previous Le Sirenuse professional photographs. </p>
+
+
+
+
+						<h4>Suggesting Text and Hashtags using Community Similarity while Maximizing Engagement </h4>
+						<p class="paragraph">Now, we return back to community characterization. To best target a community, one should know how to speak like them and talk about similar themes. Once an engagement metric was established (a standardized ‘likes’ score), an engagement score was calculated for each post per community. This score then signals which accounts in the community have the highest engagement. Our goal is to collect text (topics and hashtags) used by the entire community’s posts, but weight the words by the posts’ engagement score. </p>
+						<p class="paragraph">The entire corpus post was split between caption and hashtags. Then each of these were transformed into a numerical form using Word2vec. Word2vec is a two-layer neural net that processes text and output a set of vectors. Then, the words said in each post were counted, then multiplied by user engagement score for that post. This was then summed across all possible words to identify the the most “popular” words used within a community, weighted by the engagement score. Therefore, more popular posts would have a higher ranking than posts with little engagement. Now, we have a compilation of popular words and hashtags used by each community. </p>
+						<div class="row">
+							<div class="col-xl-6" style="height: 300px; background: url(img/captions.png) 50% 50% no-repeat; background-size: contain; margin-top: -6px;"></div>
 							<div class="col-xl-6" style="height: 300px; background: url(img/hashtags.png) 50% 50% no-repeat; background-size: contain;"></div>
 						</div>
-						<p class="paragraph">Citations: Laurence Dessart, Cleopatra Veloutsou, Anna Morgan-Thomas, (2015) "Consumer engagement in online brand communities: a social media perspective", Journal of Product & Brand Management, Vol. 24 Issue: 1, pp.28-42, https://doi.org/10.1108/JPBM-06-2014-0635</p>
+						
 					</div>
 				</div>
 			</div>
@@ -1019,9 +1031,8 @@
 					<div class="col-xl-12">
 						<h1>CONCLUSIONS</h1>
 						<p class="paragraph">
-							This project surely taught us a lot, both from a technical and organizational perspective. It gave us the chance to face the many problems that arise when performing data analisys on social media data, while working to build a product for a real client.</p>
-						<p class="paragraph">
-							Working in an international team composed of great students, on a project that could have an impact in the real world, with real partners at our side ready to collaborate with us, was extremely exciting. We established strong foundations in Deep Learning by continuously experimenting with different models and tuning numerous parameters; of course we learnt the art of constrained innovation by continuously balancing the expectations of the client, personal objectives and the available time. Finally, working in a group helped expand our vision and perspective. It has also helped us develop soft skills while collaboratively working toward a larger goal.</p>
+In this project, we address how a luxury brand may utilize a growing digital economy using big data, while maintaining its heritage. Our proposed tool, Frank, uses a human-in-the-loop model to identify relevant communities and suggest a post’s text, hashtags, and images while housed in an interactive visualization interface designed for intuitive analysis. Working with a client provided practical experience setting expectations, pitching an idea, learning in the wild, and overcoming team and managerial obstacles while maintaining momentum on an international team. 
+</p>
 						<p class="paragraph">
 							Interesting avenues for potential development include:
 						</p>
