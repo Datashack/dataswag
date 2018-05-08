@@ -420,10 +420,16 @@
 					<h6><b>Posting hours</b></h6>
 					<p class="paragraph">Keeping in mind our assumption we looked for a first very simple posting strategy: we tried to compare the times at which the two classes of users uploaded their posts. Brands and Retailers may try to concentrate their posts in specific times of the day in order to maximize the exposure of their content to consumers. These were the resulting distributions:</p>
 					<div class="row">
-						<div class="col-xl-2"></div>
-						<div class="col-xl-4" style="height: 400px; background: url(img/consumers_hours.svg) 50% 50% no-repeat; background-size: contain;"></div>
-						<div class="col-xl-4" style="height: 400px; background: url(img/brands_retailers_hours.png) 50% 50% no-repeat; background-size: contain;"></div>
-						<div class="col-xl-2"></div>
+						<div class="col-xl-1"></div>
+						<div class="col-xl-5">
+							<p style="text-align: center"><b>Number of posts per hour from consumers</b></p>
+							<div style="height: 280px; background: url(img/consumers_hours.svg) 50% 50% no-repeat; background-size: contain;"></div>
+						</div>
+						<div class="col-xl-5">
+							<p style="text-align: center"><b>Number of posts per hour from brands and retailers</b></p>
+							<div style="height: 280px; background: url(img/brands_retailers_hours.png) 50% 50% no-repeat; background-size: contain;"></div>
+						</div>
+						<div class="col-xl-1"></div>
 						<p class="paragraph" style="margin-left: 15px; margin-right: 15px">In this case we can't observe a meaningful difference in the distribution of posts over time, so it is not going to serve us as a feature to distinguish the two classes.</p>
 					</div>
 					<h6><b>Tags and Mentions</b></h6>
@@ -439,10 +445,16 @@
 					<h6><b>Biographies</b></h6>
 					<p class="paragraph">As for profile pictures, bios are used by users to describe themselves, so it is to be expected that the vocabulary used by the two classes of users differs in a relevant way. Moreover usually Instagram bios are not complete sentences, but rather a sequence of words that describe the user. For this reason we used a Count Vectorizer wich takes in input the bio text and returns a vector counting the occurrencies of each word. As expected the results differed quite a lot!</p>
 					<div class="row">
-						<div class="col-xl-2"></div>
-						<div class="col-xl-4" style="height: 400px; background: url(img/consum_vocab.svg) 50% 50% no-repeat; background-size: contain;"></div>
-						<div class="col-xl-4" style="height: 400px; background: url(img/brands_vocab.svg) 50% 50% no-repeat; background-size: contain;"></div>
-						<div class="col-xl-2"></div>
+						<div class="col-xl-1"></div>
+						<div class="col-xl-5">
+							<p style="text-align: center"><b>Occurrencies per word in consumers bio</b></p>
+							<div style="height: 280px; background: url(img/consum_vocab.svg) 50% 50% no-repeat; background-size: contain;"></div>
+						</div>
+						<div class="col-xl-5">
+							<p style="text-align: center"><b>Occurrencies per word in brands and retailers bio</b></p>
+							<div style="height: 280px; background: url(img/brands_vocab.png) 50% 50% no-repeat; background-size: contain;"></div>
+						</div>
+						<div class="col-xl-1"></div>
 					</div>
 					<p class="paragraph">Adding the presence of words from these vocabularies in the bios of the users showed improvements in the results of the classifier.</p>
 					<h6><b>Results</b></h6>
