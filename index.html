@@ -30,10 +30,10 @@
 			<div id="intro" class="row">
 				<div class="col-xl-6">
 					<div class="row">
-						<h1 id="intro-title">DATASHACK 2018 - Emporio Sirenuse</h1>
+						<h1 id="intro-title">DATASHACK 2018 <br> Emporio Sirenuse</h1>
 					</div>
 					<div class="row">
-						<p>Instagram Data Analysis - Community Detection and Content Recommendation</p>
+						<p>Instagram Data Analysis <br> Community Detection and Content Recommendation</p>
 						<p>
 							<br>Kimia Mavon
 							<br>Francesca Morini
@@ -76,7 +76,7 @@
 						<h1>INTRODUCTION AND SCOPE</h1>
 					</div>
 					<p class="paragraph">
-						Le Sirenuse Positano is a luxury 5 star hotel located in Positano, on the Amalfi Coast. The Emporio Sirenuse store stands in front of the hotel. Here, tourists and guests can find a collection of dresses and swimwear aligned with the Mediterranean style of the hotel. The collection, curated by the hotel owner Mrs. Carla Sersale, is also sold online on a dedicated website and on different e-commerce channels. Both the hotel and the store have an official Instagram account, though the hotel has a much wider influence. The goal of this project is to improve the online presence of the clothing brand by leveraging social media platforms; while protecting its heritage. 
+						Le Sirenuse Positano is a luxury 5 star hotel located in Positano, on the Amalfi Coast. The Emporio Sirenuse store stands in front of the hotel. Here, tourists and guests can find a collection of dresses and swimwear aligned with the Mediterranean style of the hotel. The collection, curated by the hotel owner Mrs. Carla Sersale, is also sold online on a dedicated website and on different e-commerce channels. Both the hotel and the store have an official Instagram account, though the hotel has a much wider influence. The goal of this project is to improve the online presence of the clothing brand by leveraging social media platforms, while protecting its heritage. 
 						<br>
 						<br> In this project, we address how a luxury brand may utilize a growing digital economy using big data, while maintaining its heritage. Our proposed tool, Frank, uses a human-in-the-loop model to identify relevant communities and suggest a post’s text, hashtags, and images. This system is housed in an interactive visualization interface designed for intuitive analysis.
 					</p>
@@ -86,7 +86,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="row" style="height: 370px; background: url(img/svg-toolstructure.png) 50% 50% no-repeat; background-size:cover; margin-top: -15px;">
+			<div class="row" style="height: 370px; background: url(img/svg-toolstructure.png) 50% 50% no-repeat; background-size:cover;">
 			</div>
 		</div>
 		<div class="container-fluid separator"></div>
@@ -146,14 +146,20 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-xl-6">
-					<div style="height: 100%; background: url(img/maskr.jpeg) 50% 50% no-repeat; background-size: contain;">
-					</div>
-				</div>
-				<div class="col-xl-6">
+				<div class="col-xl-12">
 					<h4>Intermediate Trials - Object Detection</h4>
 					<p class="paragraph">To add the perspective of what are the contents of the image, we tried using the Object Detection model designed by the Facebook AI Research team named Mask R-CNN. This model includes the power of a regular Faster R-CNN implementation and includes a Fully Convolutional Network (FCN) branch which performs pixel-by-pixel segmentation of each Region of Interest (RoI). The model detects 70 classes of objects and thus the image is represented by a vector of dimension 1x70.
 					</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xl-12">
+					<div style="height: 300px; background: url(img/maskr.jpeg) 50% 50% no-repeat; background-size: contain;">
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xl-12" style="margin-top:20px">
 					<h4>Intermediate Trials - Scene Detection</h4>
 					<p class="paragraph">To add the information of image context, we trained a Scene Detection model on the Flickr dataset which consists of images and corresponding captions. This model uses a CNN for Image Feature Extraction combined with an LSTM for Text Embedding. The model is trained to learn the relationship between the two vectors. The model outputs a string caption for an image input. For clustering, this caption was encoded using Bag of Words into a count vector.
 					</p>
@@ -198,7 +204,7 @@
 						<div class="col-xl-12" style="height: 200px; background: url(img/repr.png) 50% 50% no-repeat; background-size: contain;"></div>
 					</div>
 				</div>
-				<p class="paragraph">This approach managed to find the following clusters: Cosmetics, Modelling, Lifestyle.</p>
+				<p class="paragraph" style="margin-left: 15px">This approach managed to find the following clusters: Cosmetics, Modelling, Lifestyle.</p>
 			</div>
 			<div class="row">
 				<div class="col-xl-12">
@@ -413,9 +419,9 @@
 					<h4>Features Engineering</h4>
 					<p class="paragraph">
 						How to distinguish brands and retailers accounts from consumers accounts? Which are the features, and characteristics that discriminate the two classes?</p>
-					<p class="paragraph">We're looking for different habits or strategies in the way the content is posted like differences in the number of posts per day or the distribution of posts over the time of the day, or again tags and mentions usage. The underlying assumption to this analisys is that regardless of the actual content of the posts, the behaviour of the user online can be a good indicator of wether or not we're in presence of a consumer. More indication about the users nature can be found in what kind of content the user uses to present herself on Instagram, such as the profile picture and the biography.
+					<p class="paragraph">We're looking for different habits or strategies for posting contents, like differences in the number of posts per day or the distribution of posts over the time of the day, or again tags and mentions usage. The underlying assumption to this analisys is that regardless of the actual content of the posts, the behaviour of the user online can be a good indicator of wether or not we're in presence of a consumer. More indication about the users nature can be found in the content the user uses to present herself on Instagram, such as the profile picture and the biography.
 					</p>
-					<p class="paragraph">In order to find the correct features to distinguish users of the two classes we started from the most simple and raw data we had: accounts metadata. Some preliminar analisys were conducted representing each users with all of the account metadata available such as:</p>
+					<p class="paragraph">In order to find the correct features to distinguish users of the two classes we started from the most simple and raw data we had: accounts metadata. Some preliminar analisys were preformed representing each users with all of the account metadata available such as:</p>
 					<ul>
 						<li>Following count</li>
 						<li>Followers count</li>
@@ -426,9 +432,9 @@
 					<p class="paragraph">Based on the data we had we could compute two different posts counts: we had the total posts count, that is the one indicated in a user's profile, or we could count the posts of which we had metadata, that are the posts that the user uploaded during 2017. The second choice seemed much more relevant as it would introduce a kind of normalization, telling us how many posts each user had uploading in a given time window.</p>
 					<ul>
 						<li>Average number of posts per day for consumers: 0.45</li>
-						<li>Average number of posts per day for consumers: 0.92</li>
+						<li>Average number of posts per day for brands and retailers: 0.92</li>
 					</ul>
-					<p class="paragraph">The results we already interesting: brands and retailers produce double the number of posts wrt consumers, so this feature might be relevant for our task.</p>
+					<p class="paragraph">The results we already interesting: brands and retailers produce double the number of posts with respect to consumers, so this feature might be relevant for our task.</p>
 					<h6><b>Posting hours</b></h6>
 					<p class="paragraph">Keeping in mind our assumption we looked for a first very simple posting strategy: we tried to compare the times at which the two classes of users uploaded their posts. Brands and Retailers may try to concentrate their posts in specific times of the day in order to maximize the exposure of their content to consumers. These were the resulting distributions:</p>
 					<div class="row">
@@ -447,7 +453,7 @@
 					<h6><b>Tags and Mentions</b></h6>
 					<p class="paragraph">As we stated before we're not looking directly at content, but we are rather trying to define a common behaviour. In this case we look for regularity of usage of tags and mentions. Brands and retailers tend to use tags and mentions in a strategic way in order to target a given audience, while normal consumers usually don’t; a very simple approach is the following: build a vector counting the number of times a tag was used by a user, then compute mean and variance of that vector. Using this same approach with mentions and adding these 4 features to the representation of a user brought slight improvements to the classifier.</p>
 					<h6><b>Profile Pictures</b></h6>
-					<p class="paragraph">In the case of profile pictures there were two completely different behaviours that could easily be recognized just looking at the users profiles: brands and retailers have a logo or text in their profile picture, whereas consumers have a picture of themselves, usually their face. By using the the OpenCV library, more specifically Haar Cascades, we were able to perform face detection on the users profile pictures and add that as a relevant picture. Moreover we used the tesseract ocr in order to detect the presence of text in the picture. These two features were really relevant and improved the classifier performance.</p>
+					<p class="paragraph">In the case of profile pictures there were two completely different behaviours that could easily be recognized just looking at the users profiles: brands and retailers have a logo or text in their profile picture, whereas consumers have a picture of themselves, usually their face. By using the the OpenCV library, more specifically Haar Cascades, we were able to perform face detection on the users profile pictures and add that as a relevant feature. Moreover we used the tesseract ocr in order to detect the presence of text in the picture. These two features were really relevant and improved the classifier performance.</p>
 					<div class="row">
 						<div class="col-xl-2"></div>
 						<div class="col-xl-4" style="height: 400px; background: url(img/face.png) 50% 50% no-repeat; background-size: contain;"></div>
@@ -519,7 +525,7 @@
 			<div class="row">
 				<div class="col-xl-6">
 					<h1>FRANK</h1>
-					<h4>Upolad</h4>
+					<h4>Upload</h4>
 					<p>This is the first step: Frank is designed to help you choosing the perfect content for your Instagram account. Thanks to its algorithms, Frank will be able to give you suggestions starting from a bunch of pictures. Here's the first thing you should do.</p>
 				</div>
 			</div>
